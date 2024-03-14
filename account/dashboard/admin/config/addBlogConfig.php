@@ -24,27 +24,33 @@
                     $statusMsg = "Error: " . $_FILES["img_path"]["error"];
                 }
                 // Insert image file name into database
-                $addBlog = $conn->prepare("INSERT INTO blog (title, blog_content, img_path, show_name) VALUES(?, ?, '".$fileName."', ?);");
-                $addUserBlog = $conn->prepare("INSERT INTO userBlog (fk_user_id, fk_blog_id) VALUES($userID, LAST_INSERT_ID());");
-                $addBlog->bind_param('sss', $_POST['title'], $_POST['blog_content'], $_POST['show_name'] );
+                $addBlog = $conn->prepare("INSERT INTO blog (title, blog_content, img_path, show_name) VALUES(?, ?, ?, ?)");
+                $addBlog->bind_param('ssss', $_POST['title'], $_POST['blog_content'], $fileName, $_POST['show_name']);
+                $addBlogResult = $addBlog->execute();
 
-                $addBlog->execute();
-                $addUserBlog->execute();
-                if($addBlog){
-                    $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
-                }else{
-                    $statusMsg = "File upload failed, please try again.";
-                } 
-            }else{
-                $statusMsg = "Sorry, there was an error uploading your file.";
+                if ($addBlogResult === true) {
+                    // Insert successful
+                    $blogId = $addBlog->insert_id;
+
+                    // Prepare and execute query to insert into userBlog table
+                    $addUserBlog = $conn->prepare("INSERT INTO userBlog (fk_user_id, fk_blog_id) VALUES(?, ?)");
+                    $addUserBlog->bind_param('ii', $userID, $blogId);
+                    $addUserBlogResult = $addUserBlog->execute();
+
+                    if ($addUserBlogResult === true) {
+                        $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
+                    } else {
+                        // Error inserting into userBlog table
+                        $statusMsg = "Error inserting into userBlog table: " . $conn->error;
+                    }
+                } else {
+                    // Error inserting into blog table
+                    $statusMsg = "Error inserting into blog table: " . $conn->error;
+                }
+
             }
-        }else{
-            $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
-        }
-    }else{
-        $statusMsg = 'Please select a file to upload.';
     }
-
+}
     header("Location: ../../../../blogs");
 
 ?>

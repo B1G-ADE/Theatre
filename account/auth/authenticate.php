@@ -10,7 +10,7 @@ if (!isset($_POST['username'], $_POST['password'])) {
 }
 
 
-if ($stmt = $conn->prepare('SELECT username, password, is_admin FROM users WHERE username = ?')) {
+if ($stmt = $conn->prepare('SELECT id, password, is_admin FROM users WHERE username = ?')) {
 
     $stmt->bind_param('s', $_POST['username']);
     $stmt->execute();

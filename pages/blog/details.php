@@ -6,6 +6,8 @@
 
     $blogID = $_GET['blog_id'];
 
+    echo "Debug: Blog ID: " . $blogID . "<br>";
+
     $blogDetails = $conn->prepare('SELECT 
     b.id,
     b.title,
@@ -22,28 +24,34 @@
     $blogDetails->bind_result($blogID, $blogTitle, $blogContent, $blogCreated, $imgPath);
     $blogDetails->fetch();
 
-// comments
-$comments = $conn->prepare('SELECT 
-	
-c.id,
-c.heading,
-c.comment,
-c.date_added,
-c.pending,
-u.username,
-u.active,
-u.id
+    echo "Debug: Retrieved blog details successfully!<br>";
 
+    // comments
+    $comments = $conn->prepare('SELECT 
+    c.id,
+    c.heading,
+    c.comment,
+    c.date_added,
+    c.pending,
+    u.username,
+    u.active,
+    u.id
 FROM comments c
 LEFT JOIN userBlog ub ON c.fk_userBlog = ub.id
-LEFT JOIN blog b ON ub.fk_blog_id = b.id
 LEFT JOIN users u ON ub.fk_user_id = u.id
-where ub.fk_blog_id= '. $blogID .' AND c.pending = 0 AND u.active = 1
+WHERE ub.fk_blog_id = ? AND c.pending = 0 AND u.active = 1
 ');
+$comments->bind_param('i', $blogID);
 $comments->execute();
 $comments->store_result();
 $comments->bind_result($cID, $cHeading, $comment, $cDateAdded, $pending, $username, $active, $userID);
 
+    // Check if comments were fetched successfully
+    if ($comments->num_rows > 0) {
+        echo "Debug: Retrieved comments successfully!<br>";
+    } else {
+        echo "Debug: No comments found for this blog.<br>";
+    }
 ?>
 <section class="bg-white dark:bg-gray-900">
     <div class="flex justify-center blog-mob">
@@ -152,9 +160,12 @@ $comments->bind_result($cID, $cHeading, $comment, $cDateAdded, $pending, $userna
         <h4 class="text-4xl font-bold text-gray-800 tracking-widest uppercase text-center">Comments</h4>
         <div class="space-y-12 px-2 xl:px-16 mt-12">
             <hr>
-                <?php while ($comments->fetch()): ?>
-                    <?php if($comments->num_rows > 0 && $active == 1): ?>
-
+            <?php 
+                echo "Debug: Number of rows fetched: " . $comments->num_rows . "<br>";
+                while ($comments->fetch()): 
+                    echo "Debug: Active status: " . $active . "<br>";
+                    if ($active == 1): // Check the value of $active to determine whether to display the comment
+            ?>
                 <div class="mt-4 flex">
                     <div>
                         <p>Comment by: <?= $username?> On: <?= $cDateAdded ?></p>
@@ -166,16 +177,17 @@ $comments->bind_result($cID, $cHeading, $comment, $cDateAdded, $pending, $userna
                         </div>
                     </div>
                 </div>
-            <hr>
-            <?php endif ?>
-
-            <?php endwhile ?>
-            <?php if($comments->num_rows < 1): ?>
+                <hr>
+            <?php endif; endwhile;
+                
+                if ($comments->num_rows < 1): 
+            ?>
                 <p class="mb-4 text-sm text-gray-700">There are no comments for this show yet</p>
-            <?php endif ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>
+
 
 <?php 
     include '../../components/footer.php';

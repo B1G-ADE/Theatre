@@ -53,7 +53,7 @@ $pendingComment->bind_result($commentID, $commentDetails,$heading, $username, $b
                 </div>
               </div>
               <div class="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:mt-0">
-              <button onclick="window.location.href='commentDetails/<?= $commentID ?>';"  class="bg-gray-800 pt-2 pr-6 pb-2 pl-6 text-lg font-medium text-gray-100 transition-all
+              <button onclick="window.location.href='a/commentDetails/<?= $commentID ?>';"  class="bg-gray-800 pt-2 pr-6 pb-2 pl-6 text-lg font-medium text-gray-100 transition-all
                     duration-200 hover:bg-gray-700 rounded-lg">View Comment</button>
               </div>
             </div>
