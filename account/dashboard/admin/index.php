@@ -3,7 +3,7 @@
 <?php include '../../../components/header.php'; ?>
   
   <?php include '../../../components/navigation.php'; ?>
-  <div class="flex justify-center items-center h-screen w-screen lg:fixed top-0 mx-auto md:relative">
+  <div class="flex justify-center items-center h-screen w-screen my-auto mx-auto">
     <div class="px-3 md:lg:xl:px-40 py-20 bg-opacity-10";>
     <div class="grid gap-10 grid-cols-1 md:lg:xl:grid-cols-3 group">
   <div class="max-w-sm border-red-800 border-2 rounded overflow-hidden shadow-lg p-10 flex flex-col items-center text-center cursor-pointer" style="background-color: #1a1a1a;" onclick="window.location.href='<?= ROOT_DIR ?>a/allUsers';">
