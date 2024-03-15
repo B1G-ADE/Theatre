@@ -4,7 +4,7 @@
 ?>
   <section class="hero absolute justify-center inset-0 flex flex-col h-screen w-screen">
     <div class="flex items-center min-h-screen bg-black justify-center" style =  "background-image: url(<?php ROOT_DIR ?>assets/images/theatreCurtains.png); background-size: contain; background-repeat: no-repeat; background-position: right bottom;">
-        <div class = "w-2/3 h-2/3 flex items-center justify-center"style = "background-color: #1a1a1a;">
+        <div class = "md:w-12/12 w-2/3 h-2/3 flex items-center justify-center"style = "background-color: #1a1a1a;">
             <div class="max-w-md mx-auto my-auto items-center">
                 <div class="text-center">
                     <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Log in</h1>

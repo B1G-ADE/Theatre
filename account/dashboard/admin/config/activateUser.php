@@ -18,7 +18,7 @@ if(isset($_GET['uid']) && is_numeric($_GET['uid'])) {
     $checkActive->fetch();
     $checkActive->close();
 
-    if ($active !== 0) {
+    if ($active !== 1) {
         // Prepare the SQL statement
         $stmt = $conn->prepare('UPDATE users SET active = 1 WHERE id = ?');
 

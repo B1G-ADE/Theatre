@@ -125,7 +125,7 @@ $users->bind_result($userId, $userName, $userEmail, $userActive, $admin);
             </a>
             </button>
             <?php if ($userActive == 1): ?>
-            <button onclick="window.location.href='deactivateUser/<?= $userId ?>';">
+            <button onclick="window.location.href='a/deactivateUser/<?= $userId ?>';">
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
@@ -142,7 +142,7 @@ $users->bind_result($userId, $userName, $userEmail, $userActive, $admin);
               </svg>
             </button>
           <?php elseif ($userActive == 0): ?>
-          <button onclick="window.location.href='activateUser/<?= $userId ?>';">
+          <button onclick="window.location.href='a/activateUser/<?= $userId ?>';">
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
