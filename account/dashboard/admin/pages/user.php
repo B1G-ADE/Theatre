@@ -83,7 +83,7 @@ $users->bind_result($userId, $userName, $userEmail, $userActive, $admin);
 					
 						<td>
             <div class="flex justify-end gap-4">
-            <a class="delete-id" href="#" onclick="window.location.href='deleteUser/<?= $userId ?>'">
+            <a class="delete-id" onclick="window.location.href='a/deleteUser/<?= $userId ?>';">
             <button  x-data="{ tooltip: 'Delete' }" class="delete-btn">
           
             <svg
@@ -103,10 +103,10 @@ $users->bind_result($userId, $userName, $userEmail, $userActive, $admin);
               </svg>
           </button>
           
-}
+
           </a>
           <button>
-            <a x-data="{ tooltip: 'Edite' }" onclick="window.location.href='editUser/<?=$userId?>';">
+            <a x-data="{ tooltip: 'Edite' }" onclick="window.location.href='a/editUser/<?=$userId?>';">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

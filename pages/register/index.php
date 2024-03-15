@@ -5,7 +5,7 @@
 ?>
 <section class="h-screen">
 	<div class="h-full bg-black flex justify-center items-center py-10">
-	<div class="w-1/3 h-2/3">
+	<div class="w-2/3 h-2/3">
 		<form class="bg-black p-10 rounded-lg shadow-lg min-w-full" action="<?php ROOT_DIR ?>account/auth/register.php" method="post" style="background-color: #1a1a1a">
 			<h1 class="text-center text-2xl mb-6 text-white font-bold font-sans">REGISTER</h1>
 					<div>
